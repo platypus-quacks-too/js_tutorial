@@ -1,0 +1,15 @@
+#!/usr/local/bin/node
+
+let fs = require("fs");
+let Phrase = require("platypus-palindrome");
+
+let text = fs.readFileSync("phrases.txt", "utf-8");
+text.split("\n").forEach( (line) => {
+  let phrase = new Phrase(line);
+  if (phrase.palindrome()) {
+    fs.appendFile("palindromes.txt", `palindrome detected: ${line}\n`, (err) =>{
+      if (err) throw err;
+      console.log("Palindrome detected!");
+    } )
+  }
+});
